@@ -7,13 +7,16 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class BurgerTest {
+public class BurgerGetPriceTest {
 
     @Mock
     Bun bun;
 
     @Mock
     Ingredient ingredient;
+
+    @Mock
+    Ingredient ingredient1;
 
     @Test
     public void getPriceReturnsCorrectValue() {
@@ -26,6 +29,26 @@ public class BurgerTest {
 
         float actual = burger.getPrice();
         float expected = (float) 351.8;
+        Mockito.verify(bun).getPrice();
+        Mockito.verify(ingredient).getPrice();
+
+        Assert.assertEquals(actual, expected, 0);
+
+    }
+
+    @Test
+    public void getPriceReturnsCorrectValueWithFewIngredients() {
+        Burger burger = new Burger();
+        burger.setBuns(bun);
+        burger.addIngredient(ingredient);
+        burger.addIngredient(ingredient1);
+
+        Mockito.when(bun.getPrice()).thenReturn((float) 150.5);
+        Mockito.when(ingredient.getPrice()).thenReturn((float) 50.8);
+        Mockito.when(ingredient1.getPrice()).thenReturn((float) 22.6);
+
+        float actual = burger.getPrice();
+        float expected = (float) 374.4;
         Assert.assertEquals(actual, expected, 0);
 
     }
@@ -41,18 +64,7 @@ public class BurgerTest {
         float expected = (float) 301;
         Assert.assertEquals(actual, expected, 0);
 
-    }
 
-    @Test
-    public void getPriceReturnsCorrectValueWithoutBun() {
-        Burger burger = new Burger();
-        burger.addIngredient(ingredient);
-
-        Mockito.when(ingredient.getPrice()).thenReturn((float) 55.5);
-
-        float actual = burger.getPrice();
-        float expected = (float) 55.5;
-        Assert.assertEquals(actual, expected, 0);
 
     }
 }
