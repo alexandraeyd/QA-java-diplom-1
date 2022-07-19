@@ -25,8 +25,8 @@ public class BurgerGetReceiptTest {
 
         Mockito.when(bun.getName()).thenReturn("Вкусная булочка");
         Mockito.when(ingredient.getName()).thenReturn("Сыр");
-        Mockito.when(bun.getPrice()).thenReturn((float)140);
-        Mockito.when(ingredient.getPrice()).thenReturn((float)99);
+        Mockito.when(bun.getPrice()).thenReturn(140f);
+        Mockito.when(ingredient.getPrice()).thenReturn(99f);
         Mockito.when(ingredient.getType()).thenReturn(IngredientType.FILLING);
 
 
@@ -37,7 +37,7 @@ public class BurgerGetReceiptTest {
                 "\n" +
                 "Price: 379.000000\n";
 
-        Assert.assertEquals("Receipt is not correct", actual, expected);
+        Assert.assertEquals("Receipt is not correct", expected, actual);
 
     }
 }

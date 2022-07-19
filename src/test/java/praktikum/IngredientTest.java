@@ -6,14 +6,13 @@ public class IngredientTest {
 
     @Test
     public void getPriceReturnsCorrectValue() {
-        float ingredientPrice = 200;
+        float ingredientPrice = 200f;
         String ingredientName = "SomeIngredient";
         IngredientType ingredientType = IngredientType.SAUCE;
 
         Ingredient ingredient = new Ingredient(ingredientType, ingredientName, ingredientPrice);
         float actual = ingredient.getPrice();
-        float expected = ingredientPrice;
-        assertEquals(expected, actual,0);
+        assertEquals(ingredientPrice, actual,0);
     }
 
     @Test
@@ -24,19 +23,17 @@ public class IngredientTest {
 
         Ingredient ingredient = new Ingredient(ingredientType, ingredientName, ingredientPrice);
         String actual = ingredient.getName();
-        String expected = ingredientName;
-        assertEquals(expected, actual);
+        assertEquals(ingredientName, actual);
     }
 
     @Test
     public void getTypeReturnsCorrectValue() {
         String ingredientName = "SomeIngredient";
-        float ingredientPrice = 100;
+        float ingredientPrice = 100f;
         IngredientType ingredientType = IngredientType.SAUCE;
 
         Ingredient ingredient = new Ingredient(ingredientType, ingredientName, ingredientPrice);
         IngredientType actual = ingredient.getType();
-        IngredientType expected = ingredientType;
-        assertEquals(expected, actual);
+        assertEquals(ingredientType, actual);
     }
 }

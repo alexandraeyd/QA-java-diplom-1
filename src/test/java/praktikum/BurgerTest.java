@@ -3,13 +3,12 @@ package praktikum;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Assert;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
+import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +24,9 @@ public class BurgerTest {
 
      @Mock
      Ingredient ingredient1;
+    @Mock
      Ingredient ingredient2;
+    @Mock
      Ingredient ingredient3;
 
 
@@ -36,8 +37,7 @@ public class BurgerTest {
         burger.setBuns(bun);
 
         Object actual = burger.bun;
-        Object expected = bun;
-        assertEquals(expected, actual);
+        assertEquals("Bun is not set correctly", bun, actual);
     }
 
     @Test
@@ -46,8 +46,7 @@ public class BurgerTest {
         burger.addIngredient(ingredient);
 
         Object actual = burger.ingredients.get(0);
-        Object expected = ingredient;
-        assertEquals(expected, actual);
+        assertEquals("Ingredient is not added correctly", ingredient, actual);
     }
 
     @Test
@@ -64,19 +63,18 @@ public class BurgerTest {
         ingredientsUpdated.add(ingredient);
 
         Object actual = burger.ingredients;
-        Object expected = ingredientsUpdated;
-        assertEquals(expected, actual);
+        assertEquals("Ingredient is not removed correctly", ingredientsUpdated, actual);
     }
 
     @Test
     public void moveIngredientWorks() {
         Burger burger = new Burger();
-        List<Ingredient> ingredients = new ArrayList<Ingredient>();
-        ingredients.add(ingredient);
-        ingredients.add(ingredient1);
-        ingredients.add(ingredient2);
-        ingredients.add(ingredient3);
-        burger.ingredients = ingredients;
+
+        burger.ingredients.add(ingredient);
+        burger.ingredients.add(ingredient1);
+        burger.ingredients.add(ingredient2);
+        burger.ingredients.add(ingredient3);
+
 
         burger.moveIngredient(1,2);
 
@@ -87,8 +85,7 @@ public class BurgerTest {
         ingredientsUpdated.add(ingredient3);
 
         Object actual = burger.ingredients;
-        Object expected = ingredientsUpdated;
-        assertEquals(expected, actual);
+        assertEquals("Ingredient is not moved correctly", ingredientsUpdated, actual);
     }
 
 }

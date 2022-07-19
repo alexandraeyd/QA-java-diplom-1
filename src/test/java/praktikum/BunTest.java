@@ -13,8 +13,7 @@ public class BunTest {
 
         Bun bun = new Bun (bunName, 1);
         String actual = bun.getName();
-        String expected = bunName;
-        assertEquals(expected, actual);
+        assertEquals("Get name returned incorrect value",bunName, actual);
     }
 
     @Test
@@ -23,7 +22,6 @@ public class BunTest {
 
         Bun bun = new Bun ("Name", bunPrice);
         float actual = bun.getPrice();
-        float expected = bunPrice;
-        assertEquals(expected, actual,0);
+        assertEquals("Get price returned incorrect value", bunPrice, actual,0);
     }
 }
