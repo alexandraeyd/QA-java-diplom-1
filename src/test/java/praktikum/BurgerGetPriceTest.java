@@ -3,21 +3,16 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-
-import java.lang.reflect.Array;
-import java.util.List;
 
 @RunWith(Parameterized.class)
-public class BurgerGetPriceWithFewIngredientsTest {
+public class BurgerGetPriceTest {
 
     private float[] ingredientsPrices;
     private float bunPrice;
     private float expected;
 
 
-    public BurgerGetPriceWithFewIngredientsTest(float bunPrice, float[] ingredientsPrices, float expected) {
+    public BurgerGetPriceTest(float bunPrice, float[] ingredientsPrices, float expected) {
         this.bunPrice = bunPrice;
         this.ingredientsPrices = ingredientsPrices;
         this.expected = expected;
@@ -31,6 +26,7 @@ public class BurgerGetPriceWithFewIngredientsTest {
                 {100f, new float[]{10f, 20f,21f}, 251f},
                 {100f, new float[]{}, 200f},
                 {0f, new float[]{0f}, 0f},
+                {200.5f, new float[]{21.6f, 47.9f, 30f, 111f}, 611.5f},
         };
     }
 
@@ -46,8 +42,8 @@ public class BurgerGetPriceWithFewIngredientsTest {
         }
 
 
-        float actual = burger.getPrice();
-        Assert.assertEquals( expected, actual,0);
+        float actual = (float)burger.getPrice();
+        Assert.assertEquals( "Get price returned incorrect value", expected, actual,0);
 
     }
 }
