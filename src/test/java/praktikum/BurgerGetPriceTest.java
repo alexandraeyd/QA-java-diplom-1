@@ -1,70 +1,53 @@
 package praktikum;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
-public class BurgerGetPriceTest {
+import java.lang.reflect.Array;
+import java.util.List;
 
-    @Mock
-    Bun bun;
+@RunWith(Parameterized.class)
+public class BurgerGetPriceWithFewIngredientsTest {
 
-    @Mock
-    Ingredient ingredient;
+    private float[] ingredientsPrices;
+    private float bunPrice;
+    private float expected;
 
-    @Mock
-    Ingredient ingredient1;
 
-    @Test
-    public void getPriceReturnsCorrectValue() {
-        Burger burger = new Burger();
-        burger.setBuns(bun);
-        burger.addIngredient(ingredient);
+    public BurgerGetPriceWithFewIngredientsTest(float bunPrice, float[] ingredientsPrices, float expected) {
+        this.bunPrice = bunPrice;
+        this.ingredientsPrices = ingredientsPrices;
+        this.expected = expected;
+    }
 
-        Mockito.when(bun.getPrice()).thenReturn((float) 150.5);
-        Mockito.when(ingredient.getPrice()).thenReturn((float) 50.8);
 
-        float actual = burger.getPrice();
-        float expected = (float) 351.8;
-        Mockito.verify(bun).getPrice();
-        Mockito.verify(ingredient).getPrice();
-
-        Assert.assertEquals(actual, expected, 0);
-
+    @Parameterized.Parameters
+    public static Object[][] getTestData() {
+        return new Object[][]{
+                {150f, new float[]{10f, 20f}, 330f},
+                {100f, new float[]{10f, 20f,21f}, 251f},
+                {100f, new float[]{}, 200f},
+                {0f, new float[]{0f}, 0f},
+        };
     }
 
     @Test
     public void getPriceReturnsCorrectValueWithFewIngredients() {
         Burger burger = new Burger();
-        burger.setBuns(bun);
-        burger.addIngredient(ingredient);
-        burger.addIngredient(ingredient1);
-
-        Mockito.when(bun.getPrice()).thenReturn((float) 150.5);
-        Mockito.when(ingredient.getPrice()).thenReturn((float) 50.8);
-        Mockito.when(ingredient1.getPrice()).thenReturn((float) 22.6);
-
-        float actual = burger.getPrice();
-        float expected = (float) 374.4;
-        Assert.assertEquals(actual, expected, 0);
-
-    }
-
-    @Test
-    public void getPriceReturnsCorrectValueWithoutIngredients() {
-        Burger burger = new Burger();
+        Bun bun = new Bun("bun", bunPrice);
         burger.setBuns(bun);
 
-        Mockito.when(bun.getPrice()).thenReturn((float) 150.5);
+        for (int i=0; i<ingredientsPrices.length; i++) {
+            Ingredient ingredient = new Ingredient(IngredientType.FILLING, ("ingredient"+Integer.toString(i)), ingredientsPrices[i]);
+            burger.addIngredient(ingredient);
+        }
+
 
         float actual = burger.getPrice();
-        float expected = (float) 301;
-        Assert.assertEquals(actual, expected, 0);
-
-
+        Assert.assertEquals( expected, actual,0);
 
     }
 }
